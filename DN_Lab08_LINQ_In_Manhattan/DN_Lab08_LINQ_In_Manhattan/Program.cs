@@ -25,6 +25,6 @@ namespace DN_Lab08_LINQ_In_Manhattan
             }
         }
         //Everything else after I know what I need to do.
-
+        // Build some classes.
     }
 }
