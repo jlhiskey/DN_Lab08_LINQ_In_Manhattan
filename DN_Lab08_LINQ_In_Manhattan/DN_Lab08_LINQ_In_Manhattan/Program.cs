@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using DN_Lab08_LINQ_In_Manhattan.Classes;
 
 namespace DN_Lab08_LINQ_In_Manhattan
 {
