@@ -28,22 +28,7 @@ Each query builds off of the next.
   - Allows you to convert a .json file into an object that can then be parsed into a .NET object.
 
 ## Query Output
-### Query One
 
 ![solution image](assets/QueryOne.PNG)    
 
-### Query Two
 
-![solution image](assets/QueryTwo.PNG)    
-
-### Query Three
-
-![solution image](assets/QueryThree.PNG)    
-
-### Query Four
-
-![solution image](assets/QueryFour.PNG)    
-
-### Query Five
-
-![solution image](assets/QueryFive.PNG)    
