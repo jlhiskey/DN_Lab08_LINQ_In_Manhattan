@@ -7,13 +7,7 @@ namespace DN_Lab08_LINQ_In_Manhattan.Classes
 {
     public class Properties
     {
-        //public enum CityE { NewYork };
-        //public enum StateE { Ny };
-        //public enum BoroughE { Manhattan };
-        //public enum CountyE { NewYorkCounty };
-
         [JsonProperty("zip")]
-        //[JsonConverter(typeof(ParseStringConverter))]
         public long Zip { get; set; }
 
         [JsonProperty("city")]

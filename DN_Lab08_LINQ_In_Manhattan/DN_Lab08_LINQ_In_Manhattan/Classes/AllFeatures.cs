@@ -7,7 +7,6 @@ namespace DN_Lab08_LINQ_In_Manhattan.Classes
 {
     public class AllFeatures
     {
-
             [JsonProperty("features")]
             public List<Feature> Features { get; set; }
     }
