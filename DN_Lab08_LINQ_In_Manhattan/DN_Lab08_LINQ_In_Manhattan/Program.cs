@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DN_Lab08_LINQ_In_Manhattan.Classes;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DN_Lab08_LINQ_In_Manhattan
 {
@@ -13,13 +14,14 @@ namespace DN_Lab08_LINQ_In_Manhattan
         {
             string _filePath = @"c:\Users\Jason Hiskey\Documents\codefellows\#401\labs\DN_Lab08_LINQ_In_Manhattan\DN_Lab08_LINQ_In_Manhattan\DN_Lab08_LINQ_In_Manhattan\assets\data.json";
 
-            JObject jObject = ReadJson(_filePath);
+            JObject jObject = CreateJsonObject(_filePath);
             
             AllFeatures masterList = new AllFeatures();
 
-            masterList = PopulateClasses(jObject);
+            masterList = ParseJsonObjectToDotNetObject(jObject);
 
             //Output all Neighborhoods
+            QueryOne(masterList);
             //Filter out neighborhoods that dont have a name.
             //Remove duplicates
             //Rewrite all of the above queries into one query.
@@ -31,7 +33,7 @@ namespace DN_Lab08_LINQ_In_Manhattan
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns>JObject</returns>
-        public static JObject ReadJson(string filePath)
+        public static JObject CreateJsonObject(string filePath)
         {
             using (StreamReader reader = File.OpenText(filePath))
             {
@@ -46,11 +48,27 @@ namespace DN_Lab08_LINQ_In_Manhattan
         /// </summary>
         /// <param name="jsonData"></param>
         /// <returns>Object</returns>
-        public static AllFeatures PopulateClasses(JObject jsonData)
+        public static AllFeatures ParseJsonObjectToDotNetObject(JObject jsonData)
         {
             AllFeatures allFeatures = jsonData.ToObject<AllFeatures>();
             return allFeatures;
         }
-        
+
+        static void QueryOne(AllFeatures allFeatures)
+        {
+            var allNeighborhoods = allFeatures.Features.Select(x => x.Properties.Neighborhood);
+
+            foreach (string neighborhood in allNeighborhoods)
+            {
+                if (neighborhood == "")
+                {
+                    Console.WriteLine("NULL NAME");
+                }
+                else
+                {
+                    Console.WriteLine(neighborhood);
+                }
+            }
+        }    
     }
 }
