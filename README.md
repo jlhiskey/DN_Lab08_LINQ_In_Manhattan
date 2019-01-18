@@ -29,6 +29,6 @@ Each query builds off of the next.
 
 ## Query Output
 
-![solution image](assets/QueryOne.PNG)    
+![solution image](assets/QueryOutput.PNG)    
 
 
