@@ -19,38 +19,8 @@ namespace DN_Lab08_LINQ_In_Manhattan
             AllFeatures masterList = new AllFeatures();
 
             masterList = ParseJsonObjectToDotNetObject(jObject);
-
-            Console.WriteLine("Query 1) Output all Neighborhoods. LAMBDA");
-            Console.WriteLine();
-            QueryOne(masterList);
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Console.WriteLine("Query 2) Filter out neighborhoods that dont have a name. LAMBDA");
-            Console.WriteLine();
-            QueryTwo(masterList);
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Console.WriteLine("Query 3) Only prints neighborhoods that have a unique name. LAMBDA");
-            Console.WriteLine();
-            QueryThree(masterList);
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Console.WriteLine("Query 4) Only prints neighborhoods that have a unique name and filters out neigborhoods that have no name. LAMBDA");
-            Console.WriteLine();
-            QueryFour(masterList);
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Console.WriteLine("Query 5) Only prints neighborhoods that have a unique name and filters out neigborhoods that have no name. LINQ");
-            Console.WriteLine();
-            QueryFive(masterList);
+            
+            Query(masterList);
 
             Console.ReadLine();
         }
@@ -82,74 +52,83 @@ namespace DN_Lab08_LINQ_In_Manhattan
         }
 
         /// <summary>
-        /// Prints a full list of all neighborhoods in .Json file and adds NULL NAME if they dont have a name. LAMBDA
+        /// Runs queries
         /// </summary>
         /// <param name="allFeatures"></param>
-        static void QueryOne(AllFeatures allFeatures)
+        static void Query(AllFeatures allFeatures)
         {
+            //Query One
             var allNeighborhoods = allFeatures.Features.Select(x => x.Properties.Neighborhood);
 
+            Console.WriteLine();
+            Console.WriteLine("Query 1) Output all Neighborhoods. LAMBDA");
+            Console.WriteLine();
+
             foreach (string neighborhood in allNeighborhoods)
-            {               
+            {
+                if (neighborhood.Equals(""))
+                {
+                    Console.Write("NO NAME");
+                }
                     Console.Write($"{neighborhood}, ");
             }
-        }
 
-        /// <summary>
-        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name. LAMBDA
-        /// </summary>
-        /// <param name="allFeatures"></param>
-        static void QueryTwo(AllFeatures allFeatures)
-        {
-            var allNeighborhoods = allFeatures.Features.Where(x => x.Properties.Neighborhood != "").Select(x => x.Properties.Neighborhood);
+            Console.WriteLine();
+            Console.WriteLine();
 
-            foreach (string neighborhood in allNeighborhoods)
+            //Query Two
+            var namedNeighborhoods = allNeighborhoods.Where(x => x != "");
+
+            Console.WriteLine("Query 2) Filter out neighborhoods that dont have a name. LAMBDA");
+            Console.WriteLine();
+
+            foreach (string namedNeighborhood in namedNeighborhoods)
             {
-                Console.Write($"{neighborhood}, ");
+                Console.Write($"{namedNeighborhood}, ");
             }
-        }
 
-        /// <summary>
-        /// Prints a full list of all neighborhoods with unique names in .Json file. LAMBDA
-        /// </summary>
-        /// <param name="allFeatures"></param>
-        static void QueryThree(AllFeatures allFeatures)
-        {
-            var allNeighborhoods = allFeatures.Features.Select(x => x.Properties.Neighborhood).Distinct();
+            Console.WriteLine();
+            Console.WriteLine();
 
-            foreach (string neighborhood in allNeighborhoods)
+            //Query Three
+            var uniqueNeighborhoods = namedNeighborhoods.Distinct();
+
+            Console.WriteLine("Query 3) Only prints neighborhoods that have a unique name. LAMBDA");
+            Console.WriteLine();
+
+            foreach (string uniqueNeighborhood in uniqueNeighborhoods)
             {
-                Console.Write($"{neighborhood}, ");
+                Console.Write($"{uniqueNeighborhood}, ");
             }
-        }
 
-        /// <summary>
-        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name and any duplicate neighborhood. LAMBDA
-        /// </summary>
-        /// <param name="allFeatures"></param>
-        static void QueryFour(AllFeatures allFeatures)
-        {
-            var allNeighborhoods = allFeatures.Features.Where(x => x.Properties.Neighborhood != "").Select(x => x.Properties.Neighborhood).Distinct();
+            Console.WriteLine();
+            Console.WriteLine();
+        
+            //Query Four
+            var allFiltersNeighborhoodsLambda = allFeatures.Features.Where(x => x.Properties.Neighborhood != "").Select(x => x.Properties.Neighborhood).Distinct();
 
-            foreach (string neighborhood in allNeighborhoods)
+            Console.WriteLine("Query 4) Only prints neighborhoods that have a unique name and filters out neigborhoods that have no name. LAMBDA");
+            Console.WriteLine();
+
+            foreach (string filteredNeighborhoodLambda in allFiltersNeighborhoodsLambda)
             {
-                Console.Write($"{neighborhood}, ");
+                Console.Write($"{filteredNeighborhoodLambda}, ");
             }
-        }
 
-        /// <summary>
-        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name and any duplicate neighborhood. LINQ
-        /// </summary>
-        /// <param name="allFeatures"></param>
-        static void QueryFive(AllFeatures allFeatures)
-        {
-            var allNeighborhoods = (from item in allFeatures.Features
+            Console.WriteLine();
+            Console.WriteLine();
+
+            //Query Five
+            var allFiltersNeighborhoodsLinq = (from item in allFeatures.Features
                                     where item.Properties.Neighborhood != ""
                                     select item.Properties.Neighborhood).Distinct();
 
-            foreach (string neighborhood in allNeighborhoods)
+            Console.WriteLine("Query 5) Only prints neighborhoods that have a unique name and filters out neigborhoods that have no name. LINQ");
+            Console.WriteLine();
+
+            foreach (string filteredNeigborhoodLinq in allFiltersNeighborhoodsLinq)
             {
-                Console.Write($"{neighborhood}, ");
+                Console.Write($"{filteredNeigborhoodLinq}, ");
             }
         }
     }
