@@ -20,12 +20,21 @@ namespace DN_Lab08_LINQ_In_Manhattan
 
             masterList = ParseJsonObjectToDotNetObject(jObject);
 
-            //Output all Neighborhoods
-            //QueryOne(masterList);
-            //Filter out neighborhoods that dont have a name.
+            Console.WriteLine("Output all Neighborhoods. LAMBDA");
+            QueryOne(masterList);
+
+            
+            Console.WriteLine("Filter out neighborhoods that dont have a name. LAMBDA");
             QueryTwo(masterList);
-            //Remove duplicates
+
+            //
+            Console.WriteLine("Only prints neighborhoods that have a unique name. LAMBDA");
+            QueryThree(masterList);
+
             //Rewrite all of the above queries into one query.
+            Console.WriteLine("Only prints neighborhoods that have a unique name. LINQ");
+            QueryFour(masterList);
+
             Console.ReadLine();
         }
 
@@ -89,5 +98,36 @@ namespace DN_Lab08_LINQ_In_Manhattan
                     Console.WriteLine(neighborhood);
             }
         }
+
+        /// <summary>
+        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name and any duplicate neighborhood.
+        /// </summary>
+        /// <param name="allFeatures"></param>
+        static void QueryThree(AllFeatures allFeatures)
+        {
+            var allNeighborhoods = allFeatures.Features.Where(x => x.Properties.Neighborhood != "").Select(x => x.Properties.Neighborhood).Distinct();
+
+            foreach (string neighborhood in allNeighborhoods)
+            {
+                Console.WriteLine(neighborhood);
+            }
+        }
+
+        /// <summary>
+        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name and any duplicate neighborhood.
+        /// </summary>
+        /// <param name="allFeatures"></param>
+        static void QueryFour(AllFeatures allFeatures)
+        {
+            var allNeighborhoods = (from item in allFeatures.Features
+                                    where item.Properties.Neighborhood != ""
+                                    select item.Properties.Neighborhood).Distinct();
+
+            foreach (string neighborhood in allNeighborhoods)
+            {
+                Console.WriteLine(neighborhood);
+            }
+        }
+
     }
 }
