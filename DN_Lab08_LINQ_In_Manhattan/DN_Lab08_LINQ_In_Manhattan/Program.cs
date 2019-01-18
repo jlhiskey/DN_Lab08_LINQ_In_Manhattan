@@ -21,11 +21,12 @@ namespace DN_Lab08_LINQ_In_Manhattan
             masterList = ParseJsonObjectToDotNetObject(jObject);
 
             //Output all Neighborhoods
-            QueryOne(masterList);
+            //QueryOne(masterList);
             //Filter out neighborhoods that dont have a name.
+            QueryTwo(masterList);
             //Remove duplicates
             //Rewrite all of the above queries into one query.
-            
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -54,6 +55,10 @@ namespace DN_Lab08_LINQ_In_Manhattan
             return allFeatures;
         }
 
+        /// <summary>
+        /// Prints a full list of all neighborhoods in .Json file and adds NULL NAME if they dont have a name.
+        /// </summary>
+        /// <param name="allFeatures"></param>
         static void QueryOne(AllFeatures allFeatures)
         {
             var allNeighborhoods = allFeatures.Features.Select(x => x.Properties.Neighborhood);
@@ -69,6 +74,20 @@ namespace DN_Lab08_LINQ_In_Manhattan
                     Console.WriteLine(neighborhood);
                 }
             }
-        }    
+        }
+
+        /// <summary>
+        /// Prints a full list of all neighborhoods in .Json file and filters out any neighborhood that doesnt have a name.
+        /// </summary>
+        /// <param name="allFeatures"></param>
+        static void QueryTwo(AllFeatures allFeatures)
+        {
+            var allNeighborhoods = allFeatures.Features.Where(x => x.Properties.Neighborhood != "").Select(x => x.Properties.Neighborhood);
+
+            foreach (string neighborhood in allNeighborhoods)
+            {
+                    Console.WriteLine(neighborhood);
+            }
+        }
     }
 }
